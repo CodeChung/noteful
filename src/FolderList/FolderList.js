@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Folder from '../Folder/Folder';
+import PropTypes from 'prop-types';
 
 class FolderList extends React.Component {
     render() {
@@ -14,9 +15,17 @@ class FolderList extends React.Component {
             <div className='folder-list'>
                 {folders}
                 <Link to='/addFolder'><button>Add Folder</button></Link>
+                <Link to='/addNote'><button>Add Note</button></Link>
             </div>
         )
     }
+}
+
+FolderList.propTypes = {
+    folders: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+    }))
 }
 
 export default FolderList;

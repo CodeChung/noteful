@@ -20,3 +20,17 @@ a {
     text-decoration: none;
     color: black;
 }
+
+.error {
+    color: red;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 80%;
+}
+form input, select, button {
+    width: 30%;
+}

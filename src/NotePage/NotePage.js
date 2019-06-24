@@ -1,6 +1,7 @@
 import React from 'react';
 import Note from '../Note/Note';
 import NotesContext from '../NotesContext';
+import PropTypes from 'prop-types';
 
 class NotePage extends React.Component {
   static contextType = NotesContext;
@@ -24,6 +25,10 @@ class NotePage extends React.Component {
     }
 
   }
+}
+
+NotePage.propTypes = {
+  match: PropTypes.shape({params: PropTypes.shape({noteId: PropTypes.string.isRequired})})
 }
 
 export default NotePage

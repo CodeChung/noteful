@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import NotesContext from '../NotesContext';
+import PropTypes from 'prop-types';
 import './Note.css'
 
 class Note extends React.Component {
-    // static contextType = NotesContext;
     handleClick(id) {
         this.context.deleteNote(id)
-        Promise.resolve(true)
+        return Promise.resolve(100)
     }
     render() {
-        console.log(this.props.history)
         const id = this.props.id;
         return (
             <div className='note'>
@@ -31,5 +30,10 @@ class Note extends React.Component {
     }
 }
 
+Note.propTypes = {
+    id: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+}
 export default withRouter(Note);
 Note.contextType = NotesContext;

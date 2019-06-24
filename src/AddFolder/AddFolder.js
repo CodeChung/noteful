@@ -1,6 +1,7 @@
 import React from 'react';
 import NotesContext from '../NotesContext';
 import uuidv1 from 'uuid/v1';
+import ValidationError from '../Errors/ValidationError';
 
 class AddFolder extends React.Component {
     constructor(props) {
@@ -56,6 +57,7 @@ class AddFolder extends React.Component {
                 <h2>Add Folder</h2>
                 <label htmlFor='name'>Name of Folder</label>
                 <input type='text' name='name' id='name' onChange={(e) => this.updateName(e.target.value)}></input>
+                <ValidationError hasError={!this.state.nameValid} message={this.state.validationMessages.name}/>
                 <button type='submit' disabled={!this.state.formValid}>Create Folder</button>
             </form>
         )

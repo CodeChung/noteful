@@ -8,6 +8,7 @@ import NotesContext from'../NotesContext';
 import { Link } from 'react-router-dom';
 import './App.css';
 import AddFolder from '../AddFolder/AddFolder';
+import AddNote from '../AddNote/AddNote';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class App extends React.Component {
     this.addFolder = this.addFolder.bind(this)
     this.getNotes = this.getNotes.bind(this)
     this.addNote = this.addNote.bind(this)
+    this.deleteNote = this.deleteNote.bind(this)
   }
   componentDidMount() {
     this.getFolders()
@@ -30,11 +32,11 @@ class App extends React.Component {
       method: 'delete'
     })
       .then(resp => {
-        console.log('id', id)
         if (!resp.ok) {
           throw new Error(resp.err)
         } else {
-          return Promise.resolve(true)
+          this.getNotes();
+          return Promise.resolve(true);
         }
       })
       .catch(err => alert(err))
@@ -55,7 +57,8 @@ class App extends React.Component {
       })
   }
   addNote(id, name, folderId, content) {
-    const body = JSON.stringify({id, name, folderId, content})
+    const date = new Date().toISOString();
+    const body = JSON.stringify({id, name, folderId, content, modified: date});
     fetch('http://localhost:9090/notes',
       {
         headers: {
@@ -69,7 +72,7 @@ class App extends React.Component {
         if (!resp.ok) {
           throw new Error(resp.error)
         }
-        return resp.json()
+        console.log('resp',resp.json())
       })
       .then(resp => {
         this.getNotes();
@@ -140,6 +143,7 @@ class App extends React.Component {
               <Route path='/folder/:folderId' component={(props) => <FolderNotes match={props.match}/>}/>
               <Route path='/note/:noteId' component={(props) => <NotePage match={props.match}/>}/>
               <Route path='/addFolder' component={AddFolder}/>
+              <Route path='/addNote' component={AddNote}/>
             </Switch>
           </section>
         </main>
