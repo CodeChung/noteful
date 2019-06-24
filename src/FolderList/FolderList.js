@@ -1,5 +1,6 @@
 import React from 'react';
-import Folder from './Folder';
+import { Link } from 'react-router-dom';
+import Folder from '../Folder/Folder';
 
 class FolderList extends React.Component {
     render() {
@@ -12,7 +13,7 @@ class FolderList extends React.Component {
         return (
             <div className='folder-list'>
                 {folders}
-                <button>Add Folder</button>
+                <Link to='/addFolder'><button>Add Folder</button></Link>
             </div>
         )
     }

@@ -1,11 +1,13 @@
 import React from 'react';
-import Note from './Note';
-import NotesContext from './NotesContext';
+import Note from '../Note/Note';
+import NotesContext from '../NotesContext';
 
-class Main extends React.Component {
+class NotePage extends React.Component {
     static contextType = NotesContext;
     render() {
-        const notes = this.context.notes
+        const id = this.props.match.params.folderId;
+        const notes = this.context.notes;
+        const folderNotes = notes.filter(note => note.folderId === id)
             .map((note, index) => {
                 const date = new Date(note.modified).toDateString();
                 const title = note.name;
@@ -15,10 +17,10 @@ class Main extends React.Component {
             })
         return (
             <div>
-                {notes}
+                {folderNotes}
             </div>
         )
     }
 }
 
-export default Main;
+export default NotePage;

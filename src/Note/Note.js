@@ -1,20 +1,16 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import NotesContext from './NotesContext';
+import NotesContext from '../NotesContext';
 import './Note.css'
 
 class Note extends React.Component {
     // static contextType = NotesContext;
     handleClick(id) {
         this.context.deleteNote(id)
-            .then(resp => {
-                if (resp) {
-                    this.props.history.push('/')
-                }
-            }
-        )
+        Promise.resolve(true)
     }
     render() {
+        console.log(this.props.history)
         const id = this.props.id;
         return (
             <div className='note'>
@@ -22,12 +18,14 @@ class Note extends React.Component {
                     <h2>{this.props.title}</h2>
                     <div className='note-body'>
                         <p>Date modified on {this.props.date}</p>
-                        <button onClick={() => {
-                            this.props.history.push('/')
-                            }}>Delete Note</button>
                     </div>
                 </Link>
-                
+                <div className='note-body'>
+                    <button onClick={() => {
+                        this.handleClick(id)
+                            .then(res => this.props.history.push('/'))
+                    }}>Delete Note</button>
+                </div>
             </div>
         )
     }

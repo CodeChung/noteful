@@ -1,6 +1,6 @@
 import React from 'react';
-import Note from './Note';
-import NotesContext from './NotesContext';
+import Note from '../Note/Note';
+import NotesContext from '../NotesContext';
 
 class NotePage extends React.Component {
   static contextType = NotesContext;
