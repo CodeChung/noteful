@@ -56,8 +56,17 @@ class AddFolder extends React.Component {
             <form onSubmit={e => this.handleSubmit(e)}>
                 <h2>Add Folder</h2>
                 <label htmlFor='name'>Name of Folder</label>
-                <input type='text' name='name' id='name' onChange={(e) => this.updateName(e.target.value)}></input>
-                <ValidationError hasError={!this.state.nameValid} message={this.state.validationMessages.name}/>
+                <input 
+                    type='text' 
+                    name='name' 
+                    id='name' 
+                    aria-required='true'
+                    aria-describedby='folder-name-error'
+                    onChange={(e) => this.updateName(e.target.value)}></input>
+                <ValidationError 
+                    hasError={!this.state.nameValid} 
+                    message={this.state.validationMessages.name}
+                    id='folder-name-error'/>
                 <button type='submit' disabled={!this.state.formValid}>Create Folder</button>
             </form>
         )

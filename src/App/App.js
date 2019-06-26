@@ -10,6 +10,8 @@ import './App.css';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 
+//move all methods this into separate file; try to move state into context
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -27,7 +29,7 @@ class App extends React.Component {
     this.getFolders()
     this.getNotes()
   }
-  deleteNote(id) {
+  deleteNote(id, history) {
     fetch(`http://localhost:9090/notes/${id}`, {
       method: 'delete'
     })
@@ -38,6 +40,9 @@ class App extends React.Component {
           this.getNotes();
           return Promise.resolve(true);
         }
+      })
+      .then(resp => {
+        history.push('/')
       })
       .catch(err => alert(err))
   }

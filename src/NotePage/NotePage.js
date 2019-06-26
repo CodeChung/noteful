@@ -15,10 +15,10 @@ class NotePage extends React.Component {
       const content = note.content;
       const id = note.id;
       return (
-        <div>
+        <section className='note-page'>
           <Note date={date} title={title} content={content} id={id}/>
           <p>{content}</p>
-        </div>
+        </section>
       )
     } else {
       return (<div/>)

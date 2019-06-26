@@ -88,7 +88,12 @@ class AddNote extends React.Component {
         return (
             <form className='note-form' onSubmit={(e) => this.handleSubmit(e)}>
                 <label htmlFor='note-name'>Name</label>
-                <input type='text' id='note-name' name='note-name' onChange={(e) => this.updateName(e.target.value)}/>
+                <input 
+                    type='text' 
+                    id='note-name' 
+                    name='note-name'
+                    aria-required='true' 
+                    onChange={(e) => this.updateName(e.target.value)}/>
                 <ValidationError hasError={!this.state.nameValid} message={this.state.validationMessages.name}/>
                 <label htmlFor='note-folder'>Folder</label>
                 <select onChange={(e) => this.updateFolder(e.target.value)} id='note-folder' name='note-folder'>

@@ -4,10 +4,12 @@ import NotesContext from '../NotesContext';
 import PropTypes from 'prop-types';
 import './Note.css'
 
+//1. any way to put button in link
+//2. any way to directly use context
+
 class Note extends React.Component {
-    handleClick(id) {
-        this.context.deleteNote(id)
-        return Promise.resolve(100)
+    handleClick(id, history) {
+        this.context.deleteNote(id, history)
     }
     render() {
         const id = this.props.id;
@@ -20,10 +22,9 @@ class Note extends React.Component {
                     </div>
                 </Link>
                 <div className='note-body'>
-                    <button onClick={() => {
-                        this.handleClick(id)
-                            .then(res => this.props.history.push('/'))
-                    }}>Delete Note</button>
+                    <button onClick={() => this.handleClick(id, this.props.history)}>
+                        Delete Note
+                    </button>
                 </div>
             </div>
         )
