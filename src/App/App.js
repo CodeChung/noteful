@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import './App.css';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
+import { getNotes, getFolders, deleteNote, addNote, addFolder } from '../MethodRouter';
 
 //move all methods this into separate file; try to move state into context
 
@@ -29,102 +30,11 @@ class App extends React.Component {
     this.getFolders()
     this.getNotes()
   }
-  deleteNote(id, history) {
-    fetch(`http://localhost:9090/notes/${id}`, {
-      method: 'delete'
-    })
-      .then(resp => {
-        if (!resp.ok) {
-          throw new Error(resp.err)
-        } else {
-          this.getNotes();
-          return Promise.resolve(true);
-        }
-      })
-      .then(resp => {
-        history.push('/')
-      })
-      .catch(err => alert(err))
-  }
-  getNotes() {
-    fetch("http://localhost:9090/notes")
-      .then(resp => {
-        if (!resp.ok) {
-          throw new Error(resp.error)
-        }
-        return resp.json()
-      })
-      .then(resp => {
-        this.setState({notes: resp})
-      })
-      .catch(err => {
-        alert(err)
-      })
-  }
-  addNote(id, name, folderId, content) {
-    const date = new Date().toISOString();
-    const body = JSON.stringify({id, name, folderId, content, modified: date});
-    fetch('http://localhost:9090/notes',
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: body
-      }
-    )
-      .then(resp => {
-        if (!resp.ok) {
-          throw new Error(resp.error)
-        }
-        console.log('resp',resp.json())
-      })
-      .then(resp => {
-        this.getNotes();
-      })
-      .catch(err => {
-        alert(err)
-      })
-  }
-  getFolders() {
-    fetch("http://localhost:9090/folders")
-      .then(resp => {
-        if (!resp.ok) {
-          throw new Error(resp.error)
-        }
-        return resp.json()
-      })
-      .then(resp => {
-        this.setState({folders: resp})
-      })
-      .catch(err => {
-        alert(err)
-      })
-  }
-  addFolder = (id, name) => {
-    const body = JSON.stringify({id: id, name: name})
-    fetch('http://localhost:9090/folders',
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: body
-      }
-    )
-      .then(resp => {
-        if (!resp.ok) {
-          throw new Error(resp.error)
-        }
-        return resp.json()
-      })
-      .then(resp => {
-        this.getFolders();
-      })
-      .catch(err => {
-        alert(err)
-      })
-  }
+  deleteNote = deleteNote;
+  getNotes = getNotes;
+  addNote = addNote;
+  getFolders = getFolders;
+  addFolder = addFolder;
   render() {
     const contextValue = {
       folders: this.state.folders,
