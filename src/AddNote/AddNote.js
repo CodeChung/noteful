@@ -92,9 +92,13 @@ class AddNote extends React.Component {
                     type='text' 
                     id='note-name' 
                     name='note-name'
-                    aria-required='true' 
+                    aria-required='true'
+                    aria-describedby='note-name-error'
                     onChange={(e) => this.updateName(e.target.value)}/>
-                <ValidationError hasError={!this.state.nameValid} message={this.state.validationMessages.name}/>
+                <ValidationError 
+                    hasError={!this.state.nameValid} 
+                    message={this.state.validationMessages.name}
+                    id='note-name-error'/>
                 <label htmlFor='note-folder'>Folder</label>
                 <select onChange={(e) => this.updateFolder(e.target.value)} id='note-folder' name='note-folder'>
                     <option value=''>--</option>
